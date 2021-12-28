@@ -6,3 +6,5 @@ const router = Router();
 const userController = new UserController;
 
 router.post("/users", userController.handle);
+
+export { router }
