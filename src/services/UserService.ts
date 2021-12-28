@@ -1,6 +1,7 @@
 import { response } from 'express';
 import { getCustomRepository } from 'typeorm';
 import { UsersRepositories } from '../repositories/UsersRepositories';
+import { ErrorsUser } from '../errors/ErrorsUser'
 
 interface IUserProps {
     name: string;
@@ -13,7 +14,7 @@ class UserService{
         const usersRepository = getCustomRepository(UsersRepositories);
 
         if(!email){
-            return response.status(200).json({ message: "email incorrect" });
+            throw new ErrorsUser("email incorrect!");
         }
 
         const userAlreadtExist = await usersRepository.findOne({
@@ -21,7 +22,7 @@ class UserService{
         });
 
         if(userAlreadtExist){
-            return response.status(200).json({ message: "User already exists" });
+            throw new ErrorsUser("User already exists!");
         }
 
         const user = usersRepository.create({
