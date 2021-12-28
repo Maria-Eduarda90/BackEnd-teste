@@ -5,8 +5,12 @@
     "port": "5432",
     "username": "postgres",
     "password": "myskywalker200",
-    "database": "Products",
-    "entities": ["src/entity/*.ts"],
+    "database": "Api-teste",
+    "entities": ["src/entitys/*.ts"],
+    "cli": {
+        "migrationsDir": "src/database/migrations",
+        "entitiesDir": "src/entitys"
+    },
     "logging": false,
     "synchronize": true
 }
