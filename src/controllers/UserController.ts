@@ -23,6 +23,18 @@ class UserController{
 
         return response.json(user);
     }
+
+    async delete(request: Request, response: Response){
+        const userDelete = getCustomRepository(UsersRepositories);
+        const { id } = request.params;
+        const userAlreadyExists = await userDelete.findOne(id);
+        if(userAlreadyExists){
+            userDelete.remove(userAlreadyExists);
+            return response.status(200).send({ message: "User deleted successfuylly" })
+        }
+        
+        return response.status(200).send({ message: "error" });
+    }
 }
 
 export { UserController }
