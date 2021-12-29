@@ -33,7 +33,23 @@ class UserController{
             return response.status(200).send({ message: "User deleted successfuylly" })
         }
         
-        return response.status(200).send({ message: "error" });
+        return response.status(400).send({ message: "error" });
+    }
+
+    async update(request: Request, response: Response){
+        const { id } = request.params;
+        
+        const { name, email, password } = request.body;
+
+        const userService = new UserService();
+
+        const result = await userService.execute({ id, name, email, password});
+
+        if(result instanceof Error){
+            return response.status(400).json(result.message);
+        }
+
+        return response.json(result)
     }
 }
 

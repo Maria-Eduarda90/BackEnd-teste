@@ -8,5 +8,6 @@ const userController = new UserController;
 router.get("/users/:id", userController.show);
 router.post("/users", userController.handle);
 router.delete("/users/:id", userController.delete);
+router.put("/users/:id", userController.update);
 
 export { router }
