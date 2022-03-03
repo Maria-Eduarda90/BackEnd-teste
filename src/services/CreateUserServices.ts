@@ -10,7 +10,7 @@ interface IUserProps {
     password: string;
 }
 
-class UserService{
+class CreateUserService {
     async execute({name, email, password}: IUserProps){
         const usersRepository = getCustomRepository(UsersRepositories);
 
@@ -23,7 +23,7 @@ class UserService{
         });
 
         if(userAlreadtExist){
-            throw new ErrorsUser("User already exists!");
+            throw new ErrorsUser("Email already exists!");
         }
 
         const passwordH = await hash(password, 8);
@@ -39,22 +39,6 @@ class UserService{
         return user;
     }
 
-    async put({id, name, email, password}: IUserProps){
-        const usersRepository = getCustomRepository(UsersRepositories);
-        const user = await usersRepository.findOne(id);
-
-        if(!user){
-            return new Error("user does not exists")
-        }
-
-        user.name = name ? name : user.name;
-        user.email = email ? email : user.email;
-        user.password = password ? password : user.password;
-
-        await usersRepository.save(user);
-
-        return user;
-    }
 }
 
-export { UserService }
+export { CreateUserService }
